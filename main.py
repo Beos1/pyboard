@@ -1,4 +1,4 @@
-from Classes.player import player
+from Classes.player import player, getAllPositions
 from Classes.dice import rollDie
 from Classes.board import board
 from appJar import gui
@@ -14,16 +14,24 @@ while(x<playerCount):
     print(x)
 isThereAWinner = False
 currentRoll = 0
+currentPositions = []
 while(isThereAWinner==False):
     for player in players:
         currentRoll = rollDie()
         print("You Rolled: ")
         print(currentRoll)
+        currentPositions=getAllPositions(player)
+        if(currentRoll!=1 or 6):
+            for x in currentPositions:
+                if x == player.startPosition:
+                    currentPositions.remove(x)
+        for x in currentPositions:
+            print(x)
         isThereAWinner=True
 print("The winner is player number ")
 winner = "me"
 print( winner)
-app = gui()
-app.addLabel("title", "Welcome to appJar")
-app.setLabelBg("title", "red")
-app.go()
+#app = gui()
+#app.addLabel("title", "Welcome to appJar")
+#app.setLabelBg("title", "red")
+#app.go()

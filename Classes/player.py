@@ -1,10 +1,12 @@
 class player:
     def __init__(self, playerNumber):
         self.playerNumber = playerNumber
-        self.possition1 = setHome(playerNumber)
-        self.possition2 = setHome(playerNumber)
-        self.possition3 = setHome(playerNumber)
-        self.possition4 = setHome(playerNumber)
+        starting = setHome(playerNumber)
+        self.startPosition = starting
+        self.possition1 = starting
+        self.possition2 = starting
+        self.possition3 = starting
+        self.possition4 = starting
  
 
 def setHome(playerNumber):
@@ -20,3 +22,10 @@ def setHome(playerNumber):
         return 114
     else:
          return 117
+def getAllPositions(player):
+    allPositions = []
+    allPositions.append(player.possition1)
+    allPositions.append(player.possition1)
+    allPositions.append(player.possition1)
+    allPositions.append(player.possition1)
+    return allPositions
