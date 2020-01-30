@@ -21,13 +21,14 @@ while(isThereAWinner==False):
         print("You Rolled: ")
         print(currentRoll)
         currentPositions=getAllPositions(player)
-        if(currentRoll!=1 or 6):
-            for x in currentPositions:
+        if(currentRoll!= 1) and (currentRoll!= 6):
+            for x in reversed(currentPositions):
                 if x == player.startPosition:
+                    print("removing: ")
+                    print(x)
                     currentPositions.remove(x)
         for x in currentPositions:
             print(x)
-        isThereAWinner=True
 print("The winner is player number ")
 winner = "me"
 print( winner)
