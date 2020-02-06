@@ -7,7 +7,7 @@ players = []
 while(1>=playerCount or playerCount>6):
     playerCount = int(input("How many Players(1-6): "))
 newGame = board()
-x= 1
+x= 0
 while(x<playerCount):
     players.append(player(x))
     x = x+1
@@ -22,13 +22,26 @@ while(isThereAWinner==False):
         print(currentRoll)
         currentPositions=getAllPositions(player)
         if(currentRoll!= 1) and (currentRoll!= 6):
-            for x in reversed(currentPositions):
-                if x == player.startPosition:
-                    print("removing: ")
-                    print(x)
-                    currentPositions.remove(x)
-        for x in currentPositions:
-            print(x)
+            for position in reversed(currentPositions):
+                if position == player.startPosition:
+                    print("removing: ", position)
+                    currentPositions.remove(position)
+        if not currentPositions:
+            print("No available moves")
+        else:            
+            print("Choose a piece to move: ")
+            i = 0
+            for position in currentPositions: 
+                i=i+1
+                print(i,": ", position)
+            selectedPiece = 0
+            while(selectedPiece >= 5 or selectedPiece <= 0): 
+                selectedPiece= int(input("Select object to move: "))
+            currentPositions[selectedPiece]=currentPositions[selectedPiece]+currentRoll
+            if currentPositions[selectedPiece]>80:
+                currentPositions[selectedPiece]=currentPositions[selectedPiece]-80
+                print(currentPositions[selectedPiece])
+    
 print("The winner is player number ")
 winner = "me"
 print( winner)
