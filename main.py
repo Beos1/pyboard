@@ -15,10 +15,11 @@ while(x<playerCount):
     print(x)
 # for each player creates 4 pieces and placers them in the assigned starting positions
 isThereAWinner = False
+winner = ""
 # A flag for checking if a player has won
 currentRoll = 0
 currentPositions = []
-winner = "me"
+availableMoves = []
 while(isThereAWinner==False):
     for player in players:
         currentRoll = rollDie()
@@ -26,30 +27,34 @@ while(isThereAWinner==False):
         print(currentRoll)
         currentPositions = player.Position
         if(currentRoll!= 1) and (currentRoll!= 6):
-            for position in reversed(currentPositions):
-                if position == player.startPosition:
-                    print("removing: ", position)
-                    currentPositions.remove(position)
-        if not currentPositions:
+            for position in currentPositions:
+                if position != player.startPosition:
+                    availableMoves.append(position)
+        else:
+            for position in currentPositions:
+                availableMoves.append(position)
+        if not availableMoves:
             print("No available moves")
         else:            
             print("Choose a piece to move: ")
             i = 0
-            for position in reversed(currentPositions): 
+            for position in availableMoves: 
                 i=i+1
                 print(i,": ", position)
             selectedPiece = 0
             while(selectedPiece >= 5 or selectedPiece <= 0): 
                 selectedPiece= int(input("Select object to move: "))
-            currentPositions[selectedPiece-1]=currentPositions[selectedPiece-1]+currentRoll
-            if currentPositions[selectedPiece-1]>80:
-                currentPositions[selectedPiece-1]=currentPositions[selectedPiece-1]-80
-                print(currentPositions[selectedPiece-1])
-                player.setNewPosition(currentPositions[selectedPiece-1], selectedPiece)
+            availableMoves[selectedPiece-1]=availableMoves[selectedPiece-1]+currentRoll
+            if availableMoves[selectedPiece-1]>80:
+                availableMoves[selectedPiece-1]=availableMoves[selectedPiece-1]-80
+                print(availableMoves[selectedPiece-1])
+                player.setNewPosition(availableMoves[selectedPiece-1], selectedPiece)
                 for position in player.Position:
                     if position >= 80:
                         isThereAWinner = True
                         winner = player.playerNumber
+        availableMoves = []
+        
     
 print("The winner is player number ")
 print( winner)
