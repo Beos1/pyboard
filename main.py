@@ -18,6 +18,7 @@ isThereAWinner = False
 winner = ""
 # A flag for checking if a player has won
 currentRoll = 0
+rolledASix = False
 currentPositions = []
 availableMoves = []
 while(isThereAWinner==False):
@@ -25,7 +26,9 @@ while(isThereAWinner==False):
         currentRoll = rollDie()
         print("You Rolled: ")
         print(currentRoll)
-        currentPositions = player.Position
+        currentPositions = player.getAllPositions()
+        if(currentRoll==6):
+            rolledASix = True
         if(currentRoll!= 1) and (currentRoll!= 6):
             for position in currentPositions:
                 if position != player.startPosition:
@@ -54,6 +57,7 @@ while(isThereAWinner==False):
                         isThereAWinner = True
                         winner = player.playerNumber
         availableMoves = []
+        rolledASix = False
         
     
 print("The winner is player number ")

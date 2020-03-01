@@ -26,10 +26,9 @@ class player:
             return 117
     def getAllPositions(self):
         allPositions = []
-        allPositions.append(self.Position[0])
-        allPositions.append(self.Position[1])
-        allPositions.append(self.Position[2])
-        allPositions.append(self.Position[3])
+        for position in self.Position:
+            print(position)
+            allPositions.append(position)
         return allPositions
     def setNewPosition(self, newPos, number):
         if number == 1:
