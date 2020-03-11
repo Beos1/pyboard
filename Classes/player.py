@@ -1,7 +1,8 @@
 class player:
     def __init__(self, playerNumber):
         self.playerNumber = playerNumber
-        starting = self.setHome
+        starting = self.setHome()
+        print(starting)
         self.startPosition = starting
         self.Position = [starting, starting,starting,starting]
 
