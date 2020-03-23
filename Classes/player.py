@@ -1,10 +1,11 @@
+from Classes.marble import marble
 class player:
     def __init__(self, playerNumber):
         self.playerNumber = playerNumber
         starting = self.setHome()
         print(starting)
         self.startPosition = starting
-        self.Position = [starting, starting,starting,starting]
+        self.marbles = [marble(starting), marble(starting), marble(starting), marble(starting)]
 
 
 
@@ -27,16 +28,16 @@ class player:
             return 117
     def getAllPositions(self):
         allPositions = []
-        for position in self.Position:
-            print(position)
+        for position in self.marbles:
             allPositions.append(position)
         return allPositions
+        
     def setNewPosition(self, newPos, number):
         if number == 1:
-            self.Position[0] = newPos
+            self.marbles[0] = newPos
         elif number == 2:
-            self.Position[1] = newPos
+            self.marbles[1] = newPos
         elif number == 3:
-            self.Position[3] = newPos
+            self.marbles[3] = newPos
         elif number == 4:
-            self.Position[3] = newPos
+            self.marbles[3] = newPos

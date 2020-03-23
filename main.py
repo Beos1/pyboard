@@ -1,7 +1,7 @@
 from Classes.player import player
 from Classes.dice import rollDie
 from Classes.board import board
-from appJar import gui
+from Classes.marble import marble
 playerCount = 0
 players = []
 while(1>=playerCount or playerCount>6):
@@ -21,17 +21,18 @@ currentRoll = 0
 rolledASix = False
 currentPositions = []
 availableMoves = []
+
 while(isThereAWinner==False):
     for player in players:
         currentRoll = rollDie()
-        print("You Rolled: ")
-        print(currentRoll)
+        print("You Rolled: ", currentRoll)
+
         currentPositions = player.getAllPositions()
         if(currentRoll==6):
             rolledASix = True
         if(currentRoll!= 1) and (currentRoll!= 6):
             for position in currentPositions:
-                if position != player.startPosition:
+                if position.getPosition() != player.startPosition:
                     availableMoves.append(position)
         else:
             for position in currentPositions:
@@ -43,7 +44,7 @@ while(isThereAWinner==False):
             i = 0
             for position in availableMoves: 
                 i=i+1
-                print(i,": ", position)
+                print(i,": ", position.getPosition())
             selectedPiece = 0
             while(selectedPiece >= 5 or selectedPiece <= 0): 
                 selectedPiece= int(input("Select object to move: "))
@@ -53,7 +54,7 @@ while(isThereAWinner==False):
                 print(availableMoves[selectedPiece-1])
                 player.setNewPosition(availableMoves[selectedPiece-1], selectedPiece)
                 for position in player.Position:
-                    if position >= 80:
+                    if position.getPosition() >= 80:
                         isThereAWinner = True
                         winner = player.playerNumber
         availableMoves = []
@@ -62,7 +63,4 @@ while(isThereAWinner==False):
     
 print("The winner is player number ")
 print( winner)
-#app = gui()
-#app.addLabel("title", "Welcome to appJar")
-#app.setLabelBg("title", "red")
-#app.go()
+
