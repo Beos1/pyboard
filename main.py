@@ -1,7 +1,8 @@
 from Classes.player import player
 from Classes.dice import rollDie
-from Classes.board import board
+from Classes.bc import board
 from Classes.marble import marble
+from Classes.board import *
 playerCount = 0
 players = []
 while(1>=playerCount or playerCount>6):
