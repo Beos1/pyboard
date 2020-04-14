@@ -2,147 +2,56 @@ from tkinter import *
 from tkinter import ttk
 from player import player
 from dice import rollDie
-def create_circle(x, y, r, canvasName): #center coordinates, radius
-    x0 = x - r
-    y0 = y - r
-    x1 = x + r
-    y1 = y + r
-    return canvasName.create_oval(x0, y0, x1, y1)
-def create_coloured_circle(x, y, r, canvasName,colour): #center coordinates, radius
-    x0 = x - r
-    y0 = y - r
-    x1 = x + r
-    y1 = y + r
-    return canvasName.create_oval(x0, y0, x1, y1,fill=colour)
-def create_board(theBoard):
-    #spots 1-5
-    create_circle(300, 100, 10, theBoard)
-    create_circle(320, 100, 10, theBoard)
-    create_circle(340, 100, 10, theBoard)
-    create_circle(360, 100, 10, theBoard)
-    create_circle(380, 100, 10, theBoard)
-    #spots 6-10
-    create_circle(380, 120, 10, theBoard)
-    create_circle(380, 140, 10, theBoard)
-    create_circle(380, 160, 10, theBoard)
-    create_circle(380, 180, 10, theBoard)
-    create_circle(380, 200, 10, theBoard)
-    #spots 11-15 
-    create_circle(400, 190, 10, theBoard)
-    create_circle(420, 180, 10, theBoard)
-    create_circle(440, 170, 10, theBoard)
-    create_circle(460, 160, 10, theBoard)
-    create_circle(480, 150, 10, theBoard)
+import random
+class board:
+    def __init__(self, boardArray, homeArray):
+        self.players=[]
+        self.window = Tk() 
+        self.window.title('Agrivation')
+        self.window.geometry("800x600") 
+        self.canvas = Canvas(self.window, width = 800, height = 800)
+        self.canvas.pack()
+        self.allLoacations = boardArray
+        self.homeLocations = homeArray
+        self.occupiedSpots = [None] * 120
+        self.create_board( boardArray)
 
-    #spots 16-19
-    create_circle(490, 170, 10, theBoard)
-    create_circle(500, 190, 10, theBoard)
-    create_circle(510, 210, 10, theBoard)
-    create_circle(520, 230, 10, theBoard)
 
-    #spots 20-24
-    create_circle(500, 240, 10, theBoard)
-    create_circle(480, 250, 10, theBoard)
-    create_circle(460, 260, 10, theBoard)
-    create_circle(440, 270, 10, theBoard)
-    create_circle(420, 280, 10, theBoard)
-    #spots 25-29
-    create_circle(440, 290, 10, theBoard)
-    create_circle(460, 300, 10, theBoard)
-    create_circle(480, 310, 10, theBoard)
-    create_circle(500, 320, 10, theBoard)
-    create_circle(520, 330, 10, theBoard)
-    #spots 30-33
-    create_circle(510, 350, 10, theBoard)
-    create_circle(500, 370, 10, theBoard)
-    create_circle(490, 390, 10, theBoard)
-    create_circle(480, 410, 10, theBoard)
-    #spots34-38
-    create_circle(460, 400, 10, theBoard)
-    create_circle(440, 390, 10, theBoard)
-    create_circle(420, 380, 10, theBoard)
-    create_circle(400, 370, 10, theBoard)
-    create_circle(380, 360, 10, theBoard)
-    #spots 39-43
-    create_circle(380, 380, 10, theBoard)
-    create_circle(380, 400, 10, theBoard)
-    create_circle(380, 420, 10, theBoard)
-    create_circle(380, 440, 10, theBoard)
-    create_circle(380, 460, 10, theBoard)
-    #spots 44-47
-    create_circle(360, 460, 10, theBoard)    
-    create_circle(340, 460, 10, theBoard)
-    create_circle(320, 460, 10, theBoard)
-    create_circle(300, 460, 10, theBoard)
-    #spots 48-52
-    create_circle(300, 440, 10, theBoard)
-    create_circle(300, 420, 10, theBoard)
-    create_circle(300, 400, 10, theBoard)
-    create_circle(300, 380, 10, theBoard)
-    create_circle(300, 360, 10, theBoard)
-    #spots 53-57
-    create_circle(280, 370, 10, theBoard)
-    create_circle(260, 380, 10, theBoard)
-    create_circle(240, 390, 10, theBoard)
-    create_circle(220, 400, 10, theBoard)
-    create_circle(200, 410, 10, theBoard)
-    #spots 58-61
-    create_circle(190, 390, 10, theBoard)
-    create_circle(180, 370, 10, theBoard)
-    create_circle(170, 350, 10, theBoard)
-    create_circle(160, 330, 10, theBoard)
-    #spots 62-65
-    create_circle(180, 320, 10, theBoard)
-    create_circle(200, 310, 10, theBoard)
-    create_circle(220, 300, 10, theBoard)
-    create_circle(240, 290, 10, theBoard)
-    create_circle(260, 280, 10, theBoard)
-    #spots 66-70
-    create_circle(240, 270, 10, theBoard)
-    create_circle(220, 260, 10, theBoard)
-    create_circle(200, 250, 10, theBoard)
-    create_circle(180, 240, 10, theBoard)
-    create_circle(160, 230, 10, theBoard)
-    #spots 71-74
-    create_circle(170, 210, 10, theBoard)
-    create_circle(180, 190, 10, theBoard)
-    create_circle(190, 170, 10, theBoard)
-    create_circle(200, 150, 10, theBoard)
-    #spots 75-79
-    create_circle(220, 160, 10, theBoard)
-    create_circle(240, 170, 10, theBoard)
-    create_circle(260, 180, 10, theBoard)
-    create_circle(280, 190, 10, theBoard)
-    create_circle(300, 200, 10, theBoard)
-    #spots 80-83
-    create_circle(300, 180, 10, theBoard)
-    create_circle(300, 160, 10, theBoard)
-    create_circle(300, 140, 10, theBoard)
-    create_circle(300, 120, 10, theBoard)
-    #spot 85/middle
-    create_circle(340, 280, 10, theBoard)
-def create_board(Board,Array):
-    for x in Array:
-        i = 0
-        xpos = 0
-        for y in x:
-            if i == 0:
-                xpos = y
-            elif i == 1:
-                ypos = y
-                create_circle(xpos,y,10,theBoard)
-            i = i+1
-def create_coloured_board(Board,Array,Colour):
-    for x in Array:
-        i = 0
-        xpos = 0
-        for y in x:
-            if i == 0:
-                xpos = y
-            elif i == 1:
-                ypos = y
-                create_coloured_circle(xpos,y,10,theBoard,Colour)
-            i = i+1    
+    def create_circle(self,x, y, r): #center coordinates, radius
+        x0 = x - r
+        y0 = y - r
+        x1 = x + r
+        y1 = y + r
+        return self.canvas.create_oval(x0, y0, x1, y1)
+    def create_coloured_circle(self,x, y, r,colour): #center coordinates, radius
+        x0 = x - r
+        y0 = y - r
+        x1 = x + r
+        y1 = y + r
+        return self.canvas.create_oval(x0, y0, x1, y1,fill=colour)
+
+    def create_board(self,Array):
+        for x in Array:
+            i = 0
+            xpos = 0
+            for y in x:
+                if i == 0:
+                    xpos = y
+                elif i == 1:
+                    ypos = y
+                    self.create_coloured_circle(xpos,y,10,"white")
+                i = i+1
+    def create_coloured_board(self,Array,Colour):
+        for x in Array:
+            i = 0
+            xpos = 0
+            for y in x:
+                if i == 0:
+                    xpos = y
+                elif i == 1:
+                    ypos = y
+                    self.create_coloured_circle(xpos,y,10,Colour)
+                i = i+1    
 def popup_playercount(root,board):
     root.destroy()
     win = Toplevel()
@@ -161,41 +70,226 @@ def startGame(root,pCount,board):
     x=0
     players = []
     while(x<pCount):
-        players.append(player(x))
+        board.players.append(player(x))
         x = x+1
-        print(x)
-    newTurn(players, board)
-def newTurn(players, board):
-    for player in players:
-        roll = rollDie()
-        playerMSG = Label(board, text="Player number " + player.getPlayerNumber() + " choose a piece to move: ", fg=player.colour)   
-        rollMSG = Label(board, text="You Rolled a  " + str(roll))
-        playerMSG.place(x=550, y = 200)
-        rollMSG.place(x=550, y = 220)
+    for players in board.players:
+        board.create_coloured_circle(board.homeLocations[players.playerNumber][0],board.homeLocations[players.playerNumber][1],10,players.colour)
+    firstTurn( board)
+
+def firstTurn( board):
+            firstPlayer = random.randint(1,len(board.players))
+            print(len(board.players))
+            player = board.players[firstPlayer-1]
+            roll = rollDie()
+            playerMSG = Label(board.window, text="Player number " + player.getPlayerNumber() + " choose a piece to move: ", fg=player.colour)   
+            rollMSG = Label(board.window, text="You Rolled a  " + str(roll))
+            playerMSG.place(x=550, y = 200)
+            rollMSG.place(x=550, y = 220)
    
-        buttons=[]
-        i = 0
-        for marbles in player.marbles:
-            if marbles.getPosition() == player.startPosition:
-                if roll == 1 or 6:
-                    print(i)
-                    buttons.append( Button(board, text="Move marble "+ str(i+1), command = lambda: moveFromHome(marbles,player,board)))
-                    ypos = 250 + i * 30
-                    buttons[i].place(x=550, y= ypos)
-                    i=i+1
-            else:
-                buttons.append( Button(board, text="Move marble "+ str(i+1), command = lambda: moveFromHome(marbles,player,board)))
-                ypos = 250 + i * 30
-                buttons[i].place(x=550, y= ypos)
-                i=i+1
-def moveFromHome(marbels,player,board):
-    print("place Holder")
+            buttons=[]
+            i = 0
+            k = 0
+            for marble in player.marbles:
+                if marble.getPosition() == player.startPosition:
+                    if roll == 1 or roll == 6:
+                        if k == 0:
+                            buttons.append( Button(board.window, text="Move marble "+ str(marble.marbleNumber)+" "+str(marble.position), command = lambda: moveFromHome(0,player,board,buttons)))
+                            ypos = 250 + i * 30
+                            buttons[i].place(x=550, y= ypos)
+                            i=i+1
+                            k=k+1
+
+                        elif k == 1:
+                            buttons.append( Button(board.window, text="Move marble "+ str(marble.marbleNumber)+" "+str(marble.position), command = lambda: moveFromHome(1,player,board,buttons)))
+                            ypos = 250 + i * 30
+                            buttons[i].place(x=550, y= ypos)
+                            i=i+1
+                            k=k+1
+
+                        elif k == 2:
+                            buttons.append( Button(board.window, text="Move marble "+ str(marble.marbleNumber)+" "+str(marble.position), command = lambda: moveFromHome(2,player,board,buttons)))
+                            ypos = 250 + i * 30
+                            buttons[i].place(x=550, y= ypos)
+                            i=i+1
+                            k=k+1
+
+                        elif k == 3:
+                            buttons.append( Button(board.window, text="Move marble "+ str(marble.marbleNumber)+" "+str(marble.position), command = lambda: moveFromHome(3,player,board,buttons)))
+                            ypos = 250 + i * 30
+                            buttons[i].place(x=550, y= ypos)
+                            i=i+1
+                            k=k+1
+
+                    else:
+                        k=k+1
+                else:
+                    if k == 0:
+                        buttons.append( Button(board.window, text="Move marble "+ str(marble.marbleNumber)+" "+str(marble.position), command = lambda: moveFromSpot(0,player,board,buttons,roll)))
+                        ypos = 250 + i * 30
+                        buttons[i].place(x=550, y= ypos)
+                        i=i+1
+                        k=k+1
+                    
+                    elif k == 1:
+                        buttons.append( Button(board.window, text="Move marble "+ str(marble.marbleNumber)+" "+str(marble.position), command = lambda: moveFromSpot(1,player,board,buttons,roll)))
+                        ypos = 250 + i * 30
+                        buttons[i].place(x=550, y= ypos)
+                        i=i+1
+                        k=k+1
+
+                    elif k == 2:
+                        buttons.append( Button(board.window, text="Move marble "+ str(marble.marbleNumber)+" "+str(marble.position), command = lambda: moveFromSpot(2,player,board,buttons,roll)))
+                        ypos = 250 + i * 30
+                        buttons[i].place(x=550, y= ypos)
+                        i=i+1
+                        k=k+1
+
+                    elif k == 3:
+                        buttons.append( Button(board.window, text="Move marble "+ str(marble.marbleNumber)+" "+str(marble.position), command = lambda: moveFromSpot(3,player,board,buttons,roll)))
+                        ypos = 250 + i * 30
+                        buttons[i].place(x=550, y= ypos)
+                        i=i+1
+                        k=k+1
+
+            if buttons == []:
+                buttons.append( Button(board.window, text="You have no moves!", command = lambda: noMoves(player,board,buttons)))
+                buttons[i].place(x=550, y= 250)
+def newTurn( board, player):
+            whoPlays = player.playerNumber+1
+            if len(board.players) <= whoPlays:
+                whoPlays = 0
+
+            player = board.players[whoPlays]
+            roll = rollDie()
+            playerMSG = Label(board.window, text="Player number " + player.getPlayerNumber() + " choose a piece to move: ", fg=player.colour)   
+            rollMSG = Label(board.window, text="You Rolled a  " + str(roll))
+            playerMSG.place(x=550, y = 200)
+            rollMSG.place(x=550, y = 220)
+   
+            buttons=[]
+            i = 0
+            #number of buttons created
+            k = 0
+            #used for functions of the buttons
+            #to ensure that the fuctions of the buttons are not updating what marble to target it is using k as a pointer to the marble number
+            #this needed to be seperate from i as i is used for index and location of the buttons that are created
+
+            for marble in player.marbles:
+                if marble.getPosition() == player.startPosition:
+                    if roll == 1 or roll == 6:
+                        if k == 0:
+                            buttons.append( Button(board.window, text="Move marble "+ str(marble.marbleNumber)+" "+str(marble.position), command = lambda: moveFromHome(0,player,board,buttons)))
+                            ypos = 250 + i * 30
+                            buttons[i].place(x=550, y= ypos)
+                            i=i+1
+                            k=k+1
+                        elif k == 1:
+                            buttons.append( Button(board.window, text="Move marble "+ str(marble.marbleNumber)+" "+str(marble.position), command = lambda: moveFromHome(1,player,board,buttons)))
+                            ypos = 250 + i * 30
+                            buttons[i].place(x=550, y= ypos)
+                            i=i+1
+                            k=k+1
+
+                        elif k == 2:
+                            buttons.append( Button(board.window, text="Move marble "+ str(marble.marbleNumber)+" "+str(marble.position), command = lambda: moveFromHome(2,player,board,buttons)))
+                            ypos = 250 + i * 30
+                            buttons[i].place(x=550, y= ypos)
+                            i=i+1
+                            k=k+1
+
+                        elif k == 3:
+                            buttons.append( Button(board.window, text="Move marble "+ str(marble.marbleNumber)+" "+str(marble.position), command = lambda: moveFromHome(3,player,board,buttons)))
+                            ypos = 250 + i * 30
+                            buttons[i].place(x=550, y= ypos)
+                            i=i+1
+                    else:
+                        k=k+1
+                else:
+                    if k == 0:
+                        buttons.append( Button(board.window, text="Move marble "+ str(marble.marbleNumber)+" "+str(marble.position), command = lambda: moveFromSpot(0,player,board,buttons,roll)))
+                        ypos = 250 + i * 30
+                        buttons[i].place(x=550, y= ypos)
+                        i=i+1
+                        k=k+1
+                    elif k == 1:
+                        buttons.append( Button(board.window, text="Move marble "+ str(marble.marbleNumber)+" "+str(marble.position), command = lambda: moveFromSpot(1,player,board,buttons,roll)))
+                        ypos = 250 + i * 30
+                        buttons[i].place(x=550, y= ypos)
+                        i=i+1
+                        k=k+1
+                    elif k == 2:
+                        buttons.append( Button(board.window, text="Move marble "+ str(marble.marbleNumber)+" "+str(marble.position), command = lambda: moveFromSpot(2,player,board,buttons,roll)))
+                        ypos = 250 + i * 30
+                        buttons[i].place(x=550, y= ypos)
+                        i=i+1
+                        k=k+1
+                    elif k == 3:
+                        buttons.append( Button(board.window, text="Move marble "+ str(marble.marbleNumber)+" "+str(marble.position), command = lambda: moveFromSpot(3,player,board,buttons,roll)))
+                        ypos = 250 + i * 30
+                        buttons[i].place(x=550, y= ypos)
+                        i=i+1
+                        k=k+1
+            if buttons == []:
+                buttons.append( Button(board.window, text="You have no moves!", command = lambda: noMoves(player,board,buttons)))
+                buttons[i].place(x=550, y= 250)
+
+def moveFromHome(mNum,player,board,buttons):
+    for button in buttons:
+        button.destroy()
+    print("move from home")
+    player.marbles[mNum].position=player.moveFromHome()
+
     player.marblesAtHome = player.marblesAtHome - 1
     if player.marblesAtHome == 0:
-        print("stage 2")
+        board.create_coloured_circle(board.homeLocations[player.playerNumber][0],board.homeLocations[player.playerNumber][1],10,"white")
+    board.create_coloured_circle(board.allLoacations[player.marbles[mNum].position][0],board.allLoacations[player.marbles[mNum].position][1],10,player.colour)
+    if not board.occupiedSpots[player.moveFromHome()]:
+        board.occupiedSpots[player.moveFromHome()]=player.playerNumber
+    elif board.occupiedSpots[player.moveFromHome()]:
+        board.players[board.occupiedSpots[player.moveFromHome()]].marblesAtHome = board.players[board.occupiedSpots[player.moveFromHome()]].marblesAtHome + 1
+        for marbles in board.players[board.occupiedSpots[player.moveFromHome()]].marbles:
+            if marbles.position == player.moveFromHome():
+                marbles.position = board.players[board.occupiedSpots[player.moveFromHome()]].startPosition
+                break      
+        board.occupiedSpots[player.moveFromHome()]=player.playerNumber
+        print(board.occupiedSpots[player.moveFromHome()])
+    newTurn(board,player)
+def moveFromSpot(mNum,player,board,buttons,roll):
+    for button in buttons:
+        button.destroy()
+    board.occupiedSpots[player.marbles[mNum].position]=None
+    print("moving spot")
+    board.create_coloured_circle(board.allLoacations[player.marbles[mNum].position][0],board.allLoacations[player.marbles[mNum].position][1],10,"white")
+    player.marbles[mNum].position=player.marbles[mNum].position+roll
+    if player.marbles[mNum].position >= 84:
+        player.marbles[mNum].position = player.marbles[mNum].position - 83
+    if player.marbles[mNum].position >= player.victoryLocation:
+        if player.marbles[mNum].position-roll <= player.victoryLocation:
+            player.marblesToWin = player.marblesToWin - 1
+            player.marbles.pop(mNum)
+            if player.marblesToWin == 0:
+                Winner(board,player)
+            newTurn(board,player)
+    board.create_coloured_circle(board.allLoacations[player.marbles[mNum].position][0],board.allLoacations[player.marbles[mNum].position][1],10,player.colour)
+    if not board.occupiedSpots[player.marbles[mNum].position]:
+        board.occupiedSpots[player.marbles[mNum].position]=player.playerNumber
+    elif board.occupiedSpots[player.marbles[mNum].position]:
 
-
-
+        board.players[board.occupiedSpots[player.marbles[mNum].position]].marblesAtHome = board.players[board.occupiedSpots[player.marbles[mNum].position]].marblesAtHome + 1
+        for marbles in board.players[board.occupiedSpots[player.marbles[mNum].position]].marbles:
+            if marbles.position == player.marbles[mNum].position:
+                marbles.position = board.players[board.occupiedSpots[player.marbles[mNum].position]].startPosition
+                break
+        board.occupiedSpots[player.marbles[mNum].position]=player.playerNumber
+    newTurn(board,player)
+def noMoves(player,board,buttons):
+    for button in buttons:
+        button.destroy()
+    print("cant move")
+    newTurn(board,player)
+def Winner(board, player):
+    WINMSG = Label(board.window, text="THE WINNER IS   " + str(player.playerNumber) , width="300",font=("Courier", 44))
+    WINMSG.place(x=550, y = 200)
 boardArray = [[340,280],[300,100],[320,100],[340,100],[360,100],[380,100],[380,120],[380,140],[380,160],
 [380,180],[380,200],[400,190],[420,180],[440,170],[460,160],[480,150],[490,170],[500,190],[510,210],[520,230],
 [500,240],[480,250],[460,260],[440,270],[420,280],[440,290],[460,300],[480,310],[500,320],[520,330],[510,350],
@@ -206,22 +300,18 @@ boardArray = [[340,280],[300,100],[320,100],[340,100],[360,100],[380,100],[380,1
 [200,150],[220,160],[240,170],[260,180],[280,190],[300,200],[300,180],[300,160],[300,140],[300,120]] 
 #home Locations
 
-homeArray = [[410,100],[270,460],[145,305],[535,255],[215,120],[460, 450]]
-window = Tk() 
-window.title('Agrivation')
-window.geometry("900x600")
+homeArray = [[410,100],[270,460],[535,255],[145,305],[460, 450],[215,120]]
 
-theBoard = Canvas(window, width = 800, height = 800)
-theBoard.pack()
-Marbels = Canvas(theBoard, width = 800, height = 800)
+theBoard = board(boardArray, homeArray)
+
+
 
 
 # create x, horizontal y, vertical
-stGameBut = Button(window, text="Start Game", command = lambda:popup_playercount(stGameBut,theBoard))
-stGameBut.place(x=700,y= 300)
-exitGameButton = Button(window, text="Exit", command = window.destroy)
+stGameBut = Button(theBoard.window, text="Start Game", command = lambda:popup_playercount(stGameBut,theBoard))
+stGameBut.place(x=600, y= 200)
+exitGameButton = Button(theBoard.window, text="Exit", command = theBoard.window.destroy)
 exitGameButton.place(x=700, y = 500)
-create_board(theBoard, boardArray)
-create_coloured_board(theBoard,homeArray,"red")
-window.mainloop()
+
+theBoard.window.mainloop()
 i=0

@@ -5,14 +5,18 @@ class player:
         starting = self.setHome()
         print(starting)
         self.startPosition = starting
-        self.marbles = [marble(starting), marble(starting), marble(starting), marble(starting)]
+        self.marbles = []
+        self.marbles.append(marble(starting,1))
+        self.marbles.append(marble(starting,2))
+        self.marbles.append(marble(starting,3))
+        self.marbles.append(marble(starting,4))
         self.marblesAtHome = 4
+        self.marblesToWin = 4
         self.colour = self.setPlayerColour()
+        self.victoryLocation = self.vicCheck()
    
    
-   
-   
-   
+
     def setHome(self):
     #sets a players home based on the player number assigned to them
         if self.playerNumber == 0:
@@ -47,7 +51,7 @@ class player:
     def getPlayerNumber(self):
     #Returns the player number as a string instead of an int
 
-        return str(self.playerNumber)
+        return str(self.playerNumber+1)
 
     def getAllPositions(self):
     #Returns the positions of all marbles the user has
@@ -67,3 +71,31 @@ class player:
             self.marbles[3] = newPos
         elif number == 4:
             self.marbles[3] = newPos
+    def moveFromHome(self):
+        if self.playerNumber == 0:
+            return 5
+        elif self.playerNumber == 1:
+            return 47
+        elif self.playerNumber == 2:
+            return 19
+        elif self.playerNumber == 3:
+            return 61
+        elif self.playerNumber == 4:
+            return 33
+        else:
+            return 75
+   
+   
+    def vicCheck(self):
+        if self.playerNumber == 0:
+            return 3
+        elif self.playerNumber == 1:
+            return 45
+        elif self.playerNumber == 2:
+            return 17
+        elif self.playerNumber == 3:
+            return 59
+        elif self.playerNumber == 4:
+            return 31
+        else:
+            return 73
