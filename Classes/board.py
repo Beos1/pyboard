@@ -290,7 +290,10 @@ def noMoves(player,board,buttons):
     newTurn(board,player)
 def Winner(board, player):
     print("The winner is player " + str(player.playerNumber+1))
-    board.window.destroy()
+    msg = Label(board.window, text="Player "+str(player.playerNumber+1)+" Wins",font=("Courier", 15))
+    board.canvas.destroy()
+    msg.place(x=150, y = 200)
+
 boardArray = [[340,280],[300,100],[320,100],[340,100],[360,100],[380,100],[380,120],[380,140],[380,160],
 [380,180],[380,200],[400,190],[420,180],[440,170],[460,160],[480,150],[490,170],[500,190],[510,210],[520,230],
 [500,240],[480,250],[460,260],[440,270],[420,280],[440,290],[460,300],[480,310],[500,320],[520,330],[510,350],
